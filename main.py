@@ -86,7 +86,7 @@ def connect():
 # Connect function from https://projects.raspberrypi.org/en/projects/get-started-pico-w/2
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    wlan.connect(ssid) # Remove password if using airuc-guest
+    wlan.connect(ssid, password) # Remove password if using wifi with no apssword
     while wlan.isconnected() == False:
         print('Waiting for connection...')
         time.sleep(1)
@@ -197,7 +197,8 @@ def get_top3_songs(token, country_link):
         strip.show()
         time.sleep(4)
 
-ssid = 'airuc-guest' # This should be ‘airuc-guest’ on campus Wi-Fi
+ssid = 'YOUR-WIFI-NAME' # if the wifi does not need a password, do not pass password into wlan.connect
+password = 'WIFI-PASSWORD'
 
 try:
     connect()
@@ -207,8 +208,8 @@ except KeyboardInterrupt:
     
 print('Connected. End of code.')
 
-client_id = '580ae12575b64c4f8b7ae5d576bb76ce' # data needed for the push request to get the access code
-client_secret = 'fac510a615c04f6dbca036127957e920'
+client_id = 'YOUR-CLIENT-ID' # data needed for the push request to get the access code
+client_secret = 'YOUR-CLIENT-SECRET'
 
 i2c = machine.I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000) # setting up the raspberry pi for the lcd screen
 lcd = pico_i2c_lcd.I2cLcd(i2c, 39, 2, 16)
